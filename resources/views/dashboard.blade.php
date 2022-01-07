@@ -22,6 +22,16 @@
                 </div>
             @endif
 
+            @if (session()->get('updateSuccess') == 1)
+                <div class="col-md-6 mx-auto p-3 alert alert-success text-center mb-3">
+                    <span>Specified value was successfully updated.</span>
+                </div>
+            @elseif(session()->get('updateSuccess') == -1)
+                <div class="col-md-6 mx-auto p-3 alert alert-danger text-center mb-3">
+                    <span>Failed to update specified value! Please retry.</span>
+                </div>
+            @endif
+
             <div class="row">
                 <div class="col-6">
                     <div>
@@ -62,6 +72,7 @@
 
                 <div class="tabs col-md-9">
                     <div class="tab-content" id="v-pills-tabContent">
+                        {{-- profile tab --}}
                         <div class="tab-pane fade show active" id="profile-tab" role="tabpanel">
                             <div>
                                 <h6>Your profile</h6>
@@ -77,7 +88,7 @@
                                     <h5 class="mt-3">{{$user["fullName"]}}</h5>
                                 </div>
                                 <div class="mt-3 card">
-                                    <div class="card-header">
+                                    <div class="card-header light-bg-green">
                                         Personal information
                                     </div>
                                     <div class="card-body">
@@ -121,6 +132,7 @@
                             </div>
                         </div>
 
+                        {{-- feedbacks tab --}}
                         {{-- student r teacher er jnno alada option --}}
                         <div class="tab-pane fade" id="feedback-tab" role="tabpanel">
                             <div>
@@ -142,7 +154,36 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="update-tab" role="tabpanel">Update profile</div>
+
+                        {{-- update tab --}}
+                        <div class="tab-pane fade" id="update-tab" role="tabpanel">
+                            <div>
+                                <h6>Update profile information</h6>
+                            </div>
+                            <hr>
+                            <div>
+                                <form action={{url("/update-profile")}} method="post">
+                                    <div class="col-md-9 mx-auto applyShadow mb-4">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="colName" class="form-label">Select value to update</label>
+                                            <select name="colName" class="form-select" id="colName">
+                                                <option value="fullName">Full name</option>
+                                                <option value="email">Email</option>
+                                                <option value="password">Password</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label for="value" class="form-label">Enter new value</label>
+                                            <input name="value" required type="text" class="form-control" id="value" placeholder="New value">
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button class="btn btn-warning" type="submit">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

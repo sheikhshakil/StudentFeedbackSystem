@@ -11,7 +11,12 @@ class isUnauthenticated
     {
         $user = $request->session()->get("user");;
         if($user) {
-            return redirect('/dashboard');
+            if($user["accType"] === "admin") {
+                return redirect('/admin-dashboard');
+            }
+            else {
+                return redirect('/dashboard');
+            }
         }
         else {
             return $next($request);

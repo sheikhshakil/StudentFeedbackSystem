@@ -12,6 +12,7 @@
 section {
     padding-top: 3rem !important;
     padding-bottom: 3rem !important;
+    min-height: 70vh;
 }
 
 .navbar-brand {
@@ -58,8 +59,6 @@ nav {
 /* account */
 #form {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border: 1px solid rgb(187, 187, 187);
-    border-radius: 10px;
 }
 
 #form ul, #form ul li button {
@@ -104,18 +103,20 @@ nav {
 /* tabbed menu styles */
 .menu-parent {
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-    border: 1px solid rgb(185, 185, 185);
     --bs-gutter-x: 0;
-    border-radius: 5px;
 }
 
 .menu {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    border-radius: 5px;
+    background-color: rgb(253, 252, 232);
+    border: 1px solid rgb(255, 187, 0);
 }
 
 .menu, .tabs {
-    padding: 1rem;
+    padding: 1.5rem;
+}
+
+.tabs {
+    background-color: #f5fff5;
 }
 
 .menu div{
@@ -149,7 +150,7 @@ nav {
 }
 
 /* send feedback tab */
-.tSelectDiv, .questionsDiv {
+.tSelectDiv, .questionsDiv, .applyShadow {
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
@@ -164,6 +165,38 @@ nav {
     padding: 0.7rem;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
+}
+
+/* admin */
+.light-bg {
+    background-color: #ffe9ac;
+}
+.light-bg-red {
+    background-color: #ffbdbd;
+}
+.light-bg-purple {
+    background-color: #ecceff;
+}
+.light-bg-green {
+    background-color: #c8ffc1;
+}
+
+.extra-light-bg-green {
+    background-color: #efffec;
+}
+.extra-light-bg-red {
+    background-color: #ffebeb;
+}
+
+th {
+    font-weight: 500;
+}
+table {
+    font-size: 14px;
+}
+
+.my-shadow {
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 footer {
@@ -182,5 +215,8 @@ footer {
 
     #home-top-img-div{
         text-align: center;
+    }
+    .col-mb {
+        margin-bottom: 1rem;
     }
 }

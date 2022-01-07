@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div>
                     <h1>Student Feedback System</h1>
-                    <p>Create and participate in academic surveys conveniently.</p>
+                    <p>Participate in and view academic surveys more conveniently.</p>
                 </div>
             </div>
             <div class="col-md-6">
@@ -28,7 +28,7 @@
                       <h6>Annonymous feedback</h6>
                     </div>
                     <div class="card-body">
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, qui veniam. Minima doloribus illo dolores blanditiis, sapiente vero molestias, veritatis alias sed incidunt assumenda eum dolor ipsum, aspernatur beatae consequatur.</p>
+                      <p>Feedbacks submitted by students here will be annonymous to the teachers. So no teachers can see who awarded them with how many stars. This makes submitting feedbacks safely without any worries.</p>
                     </div>
                   </div>
             </div>
@@ -38,7 +38,7 @@
                       <h6>Convenient feedbacks view</h6>
                     </div>
                     <div class="card-body">
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, qui veniam. Minima doloribus illo dolores blanditiis, sapiente vero molestias, veritatis alias sed incidunt assumenda eum dolor ipsum, aspernatur beatae consequatur.</p>
+                      <p>Teachers can see their respective feedbacks in depth along with every feedback result submitted by students. Also an average feedback result is shown to provide convenience and for easier evaluation.</p>
                     </div>
                   </div>
             </div>
@@ -48,7 +48,7 @@
                       <h6>Admin management</h6>
                     </div>
                     <div class="card-body">
-                      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, qui veniam. Minima doloribus illo dolores blanditiis, sapiente vero molestias, veritatis alias sed incidunt assumenda eum dolor ipsum, aspernatur beatae consequatur.</p>
+                      <p>Admin can manage all students and teachers list with right to delete users. Admin can also see detailed feedback results along with who submitted which feedback for whom preserving the right to delete feedbacks if necessary.</p>
                     </div>
                   </div>
             </div>

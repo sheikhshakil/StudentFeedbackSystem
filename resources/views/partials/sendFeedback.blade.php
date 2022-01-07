@@ -4,7 +4,7 @@
         <div class="tSelectDiv">
             <label for="teacher-list" class="form-label">Select teacher</label>
             {{-- student er same dept er teacher der nam ekhane show korbe. onno dept teacher der nam show korbe na --}}
-            <select name="t_id" id="teacher-list" class="form-select">
+            <select required name="t_id" id="teacher-list" class="form-select">
                 @foreach ($teachers as $teacher)
                     <option value={{$teacher->t_id}}>{{$teacher->fullName}}</option>
                 @endforeach

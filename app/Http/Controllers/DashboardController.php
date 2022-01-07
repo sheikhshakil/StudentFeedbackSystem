@@ -37,43 +37,36 @@ class DashboardController extends Controller
         $user = $request->session()->get('user');
 
         if($user["accType"] === "student") {
-            $isReady = $this->setupFeedbackTable();
+            $t_id = $request->get('t_id');
 
-            if($isReady) {
-                $t_id = $request->get('t_id');
+            $hasFeedback = DB::selectOne("SELECT f_id FROM feedbacks WHERE t_id = ? AND std_id = ?", [
+                $t_id,
+                $user["std_id"]
+            ]);
 
-                $hasFeedback = DB::selectOne("SELECT f_id FROM feedbacks WHERE t_id = ? AND std_id = ?", [
-                    $t_id,
-                    $user["std_id"]
-                ]);
-
-                if($hasFeedback) {
-                    return redirect('/dashboard')->with(['feedbackSuccess' => 2]);
-                }
-                else {
-                    try {
-                        $query = "INSERT INTO feedbacks (t_id, std_id, q1, q2, q3, q4, q5, q6) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-
-                        DB::insert($query, [
-                            $t_id,
-                            $user["std_id"],
-                            $request->get('q1'),
-                            $request->get('q2'),
-                            $request->get('q3'),
-                            $request->get('q4'),
-                            $request->get('q5'),
-                            $request->get('q6')
-                        ]);
-
-                        return redirect('/dashboard')->with(['feedbackSuccess' => 1]);
-                    } 
-                    catch (\Throwable $th) {
-                        return redirect('/dashboard')->with(['feedbackSuccess' => -1]);
-                    }
-                }
+            if($hasFeedback) {
+                return redirect('/dashboard')->with(['feedbackSuccess' => 2]);
             }
             else {
-                return response("Feedback table setup failed!", 500);
+                try {
+                    $query = "INSERT INTO feedbacks (t_id, std_id, q1, q2, q3, q4, q5, q6) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+
+                    DB::insert($query, [
+                        $t_id,
+                        $user["std_id"],
+                        $request->get('q1'),
+                        $request->get('q2'),
+                        $request->get('q3'),
+                        $request->get('q4'),
+                        $request->get('q5'),
+                        $request->get('q6')
+                    ]);
+
+                    return redirect('/dashboard')->with(['feedbackSuccess' => 1]);
+                } 
+                catch (\Throwable $th) {
+                    return redirect('/dashboard')->with(['feedbackSuccess' => -1]);
+                }
             }
         }
         else {
@@ -81,14 +74,37 @@ class DashboardController extends Controller
         }
     }
 
-    public function setupFeedbackTable() {
-        $query = "CREATE TABLE IF NOT EXISTS feedbacks (f_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, t_id VARCHAR(10) NOT NULL, std_id VARCHAR(10) NOT NULL, q1 INT NOT NULL, q2 INT NOT NULL, q3 INT NOT NULL, q4 INT NOT NULL, q5 INT NOT NULL, q6 INT NOT NULL, submissionDate DATETIME DEFAULT CURRENT_TIMESTAMP);";
+    public function updateProfile(Request $request) {
+        $user = $request->session()->get("user");
+        //detect where to update
+        $colName = $request->get("colName");
+        $value = $request->get("value");
 
         try {
-            DB::statement($query);
-            return true;
-        } catch (\Throwable $th) {
-            return false;
+            if($user["accType"] === "student") {
+                DB::update("UPDATE students SET " . $colName . " = ? WHERE std_id = ?", [
+                    $value,
+                    $user["std_id"]
+                ]);
+            }
+            else if($user["accType"] === "teacher") {
+                DB::update("UPDATE teachers SET " . $colName . " = ? WHERE t_id = ?", [
+                    $value,
+                    $user["t_id"]
+                ]);
+            }
+            
+            if($colName != "password") {
+                $user[$colName] = $value;
+                $request->session()->forget('user');
+                $request->session()->flush();
+                $request->session()->put('user', $user);
+            }
+    
+            return redirect('/dashboard')->with(['updateSuccess' => 1]);
+        } 
+        catch (\Throwable $th) {
+            return redirect('/dashboard')->with(['updateSuccess' => -1]);
         }
     }
 

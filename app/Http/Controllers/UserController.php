@@ -7,54 +7,17 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    //page load howar time ei student r teacher table gula create hobe jodi exist na kore
-    public function setupStudentTable() {
-        $query = "CREATE TABLE IF NOT EXISTS students (accType VARCHAR(10) NOT NULL, std_id VARCHAR(10) PRIMARY KEY NOT NULL, fullName VARCHAR(255) NOT NULL, dept VARCHAR(10) NOT NULL, semester INT NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(30) NOT NULL, regDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);";
-
-        try {
-            DB::statement($query);
-            return true;
-        } catch (\Throwable $th) {
-            return false;
-        }
-    }
-
-    public function setupTeacherTable() {
-        $query = "CREATE TABLE IF NOT EXISTS teachers (accType VARCHAR(10) NOT NULL, t_id VARCHAR(10) PRIMARY KEY NOT NULL, fullName VARCHAR(255) NOT NULL, dept VARCHAR(10) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(30) NOT NULL, regDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP);";
-
-        try {
-            DB::statement($query);
-            return true;
-        } catch (\Throwable $th) {
-            return false;
-        }
-    }
-
-    //
     public function startAuthProcess(Request $request){
         $type = $request->type;
 
         //type onujayi age table ta create kore then page render hobe
         if($type == "student") {
-            $isSetup = $this->setupStudentTable();
-            
-            if($isSetup) {
-                return view('account', ["type" => "student"]);
-            }
-            else {
-                return response("Database setup failed!", 500);
-            }
+            return view('account', ["type" => "student"]);
         }
         else if($type == "teacher") {
-            $isSetup = $this->setupTeacherTable();
-            if($isSetup) {
-                return view('account', ["type" => "teacher"]);
-            }
-            else {
-                return response("Database setup failed!", 500);
-            }
-            
-        } else {
+            return view('account', ["type" => "teacher"]);
+        } 
+        else {
             return "Bad request";
         }
     }
@@ -181,15 +144,15 @@ class UserController extends Controller
                         return redirect('/dashboard');
                     }
                     else {
-                        return redirect('/account?type=student')->with(["loginSuccess" => -1]);
+                        return redirect('/account?type=teacher')->with(["loginSuccess" => -1]);
                     }
                 }
                 else {
-                    return redirect('/account?type=student')->with(["loginSuccess" => -1]);
+                    return redirect('/account?type=teacher')->with(["loginSuccess" => -1]);
                 }
             } 
             catch (\Throwable $th) {
-                return redirect('/account?type=student')->with(["loginSuccess" => -2]);
+                return redirect('/account?type=teacher')->with(["loginSuccess" => -2]);
             }
         }
     }

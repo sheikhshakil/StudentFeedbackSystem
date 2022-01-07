@@ -30,14 +30,26 @@
                       @endphp
                     @endisset
                     <ul class="navbar-nav ms-auto">
-                      <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                      </li>
                       @if ($hasUser)
+                        @if ($user["accType"] === "admin")
+                          <li class="nav-item">
+                            <a class="nav-link" href="/admin-dashboard">Dashboard</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/usersList">Users list</a>
+                          </li>
+                        @else
+                          <li class="nav-item">
+                            <a class="nav-link" href="/dashboard">Dashboard</a>
+                          </li>
+                        @endif
                         <li class="nav-item">
                           <a class="nav-link" href="/logout">Logout</a>
                         </li>
                       @else
+                        <li class="nav-item">
+                          <a class="nav-link" href="/">Home</a>
+                        </li>
                         <li class="nav-item dropdown">
                           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             Account
@@ -46,6 +58,8 @@
                             <li><a class="dropdown-item" href="/account?type=student">Student</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="/account?type=teacher">Teacher</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/admin">Admin</a></li>
                           </ul>
                         </li>
                       @endif
